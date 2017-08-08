@@ -1,0 +1,13 @@
+input {
+  padding: 5px;
+  font-size: 16px;
+  margin: 5px;
+}
+
+.toggle-button {
+  padding: 5px 10px;
+  margin: 5px;
+  background: green;
+  color: white;
+  font-size: 16px;
+}
