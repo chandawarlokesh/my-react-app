@@ -1,0 +1,45 @@
+.heading {
+  background-color: #4A77AE;
+  padding: 20px;
+  color: white;
+  font-size: 2em;
+  font-weight: bold;
+  width: 100%;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4A77AE;
+}
+
+li {
+    float: left;
+}
+
+li h1 {
+    color: white;
+    text-align: center;
+    padding: 13px 36px;
+    text-decoration: none;
+    margin: 0
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 18px 16px;
+    text-decoration: none;
+}
+
+a:hover:not(.active) {
+    text-decoration: underline;
+}
+
+.active {
+  background-color: #FFF;
+  color: #4A77AE;
+}
