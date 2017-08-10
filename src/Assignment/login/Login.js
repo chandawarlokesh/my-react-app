@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setUserName, setPassword } from '../actions'
+import getUserDetails from '../store'
 import './Login.css';
 import isObject from 'lodash/isObject'
 import isFunction from 'lodash/isFunction'
@@ -6,13 +9,6 @@ import has from 'lodash/has'
 import get from 'lodash/get'
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userName: 'admin',
-      password: 'password'
-    };
-  }
 
   componentDidMount() {
     window.addEventListener('message', this.redirectToMain, false);
@@ -67,19 +63,17 @@ class Login extends Component {
   }
 
   onClick = () => {
-    this.props.history.replace('/home')
+    if( this.props.userName === "admin" && this.props.password === "password") {
+      this.props.history.replace('/home')
+    }
   }
 
   handleUserName = (e) => {
-    this.setState({
-      userName: e.target.value
-    })
+    this.props.onUserNameChange(e.target.value)
   }
 
   handlePassword = (e) => {
-    this.setState({
-      password: e.target.value
-    })
+    this.props.onPasswordChange(e.target.value)
   }
 
   render() {
@@ -92,11 +86,11 @@ class Login extends Component {
                         <form name="form">
                             <div className="form-group">
                                 <label htmlFor="username">Username</label>
-                                <input type="text" className="form-control" value={this.state.userName} name="userName" onChange={this.handleUserName}/>
+                                <input type="text" className="form-control" value={this.props.userName} name="userName" onChange={this.handleUserName}/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="password">Password</label>
-                                <input type="password" className="form-control" value={this.state.password} name="password" onChange={this.handlePassword}/>
+                                <input type="password" className="form-control" value={this.props.password} name="password" onChange={this.handlePassword}/>
                             </div>
                             <div className="form-group">
                                 <button className="btn btn-primary" type="button" id="login" onClick={this.onClick}>Login</button>
@@ -111,4 +105,27 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    userName: getUserDetails(state, "GET_USERNAME"),
+    password: getUserDetails(state, "GET_PASSWORD")
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onUserNameChange: data => {
+      dispatch(setUserName(data))
+    },
+    onPasswordChange: data => {
+      dispatch(setPassword(data))
+    }
+  }
+}
+
+const LoginComponent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login)
+
+export default LoginComponent;
