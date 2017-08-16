@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import './Login.css';
-import isObject from 'lodash/isObject'
-import isFunction from 'lodash/isFunction'
-import has from 'lodash/has'
-import get from 'lodash/get'
 
 class Login extends Component {
   constructor(props) {
@@ -12,58 +8,6 @@ class Login extends Component {
       userName: 'admin',
       password: 'password'
     };
-  }
-
-  componentDidMount() {
-    window.addEventListener('message', this.redirectToMain, false);
-    // const { history } = this.props
-    // window.addEventListener('message', function(event) {
-    //   const {data, origin} = event;
-    //   console.log(data, origin);
-    //   if (data && isObject(data) && origin) {
-    //     isFunction(window.getUserData) && window.getUserData("64f52208-2085-4a73-b251-7528587dc3e7","2")
-    //       .then(function (e) {
-    //         if(e.target.response.StatusCode === 200) {
-    //           history.replace('/home')
-    //         }
-    //         console.log('Result ', e.target.response);
-    //       })
-    //       .catch(function (e) {
-    //         console.log('Hello error ', e);
-    //       });
-    //   }
-    // },false);
-  }
-
-  redirectToMain = (event) => {
-    console.log('Event Object : ', event);
-      if (!has(event, 'data.data')) {
-        const { data } = event;
-        if (data !== "" && !isObject(data)) {
-          const eventData = JSON.parse(data);
-          const { appId, token } = eventData
-          localStorage.setItem('appId', appId);
-          localStorage.setItem('token', token);
-          console.log('token value :', token,' app=', appId);
-          this.getUserList(token, appId);
-        }
-      }
-  }
-
-  getUserList = (token, appId) => {
-    const { history } = this.props
-    isFunction(window.getUserData) && window.getUserData(token, appId)
-      .then(function (e) {
-        const response = JSON.parse(e.target.response);
-        console.log('Result ', response);
-        localStorage.setItem('userName', get(response, 'Data.userName', null));
-        const roleName = response['Data']['role'][0]['roleName']
-        localStorage.setItem('role', roleName === 'admin' ? roleName : 'role');
-        history.replace('/home');
-      }, function (e) {
-        // handle errors
-        console.log('Hello error ', e);
-      });
   }
 
   onClick = () => {
