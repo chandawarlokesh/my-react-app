@@ -7,9 +7,8 @@ class Navigation extends Component {
       <header>
         <nav>
           <ul>
-            <li><NavLink to='/home' activeClassName="active">Home Page</NavLink></li>
-            <li><NavLink to='/about_us' activeClassName="active">About Us</NavLink></li>
-            <li><NavLink to='/contact' activeClassName="active">Contact</NavLink></li>
+            <li><NavLink to='/main' activeClassName="active">Main Page</NavLink></li>
+            <li><NavLink to='/aboutUs' activeClassName="active">About Us</NavLink></li>
           </ul>
         </nav>
       </header>

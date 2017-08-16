@@ -11,7 +11,7 @@ class Login extends Component {
   }
 
   onClick = () => {
-    this.props.history.replace('/home')
+    this.props.history.replace('/main')
   }
 
   handleUserName = (e) => {

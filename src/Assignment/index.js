@@ -11,6 +11,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 class Assignment extends Component {
 
+  constructor(props){
+    super(props)
+    this.redirectToMain = this.redirectToMain.bind(this)
+    this.getUserList = this.getUserList.bind(this)
+  }
+
   componentDidMount() {
     window.addEventListener('message', this.redirectToMain, false);
   }
@@ -21,6 +27,7 @@ class Assignment extends Component {
 
   redirectToMain = (event) => {
     const { data } = event;
+    debugger;
     console.log(data);
     if (data !== "" && !isObject(data)) {
       isFunction(window.GEFunctions) && window.GEFunctions.init(data);
