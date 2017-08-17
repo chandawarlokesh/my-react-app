@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Router, Route, browserHistory, IndexRedirect } from 'react-router'
 import './App.css';
+import { Login, Navigation, Main, AboutUs, NoMatch } from './components/index'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Router history={browserHistory}>
+          <Route path="/login" component={Login}/>
+          <Route path="/" component={Navigation}>
+            <IndexRedirect to="/main" />
+            <Route path="main" component={Main}/>
+            <Route path="aboutUs" component={AboutUs}/>
+            <Route path="*" component={NoMatch}/>
+          </Route>
+        </Router>
       </div>
     );
   }

@@ -2,23 +2,80 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .App-header {
-  background-color: #222;
-  height: 150px;
+  background-color: #4A77AE;
   padding: 20px;
   color: white;
+  font-size: 2em;
+  font-weight: bold;
+  width: 100%;
 }
 
-.App-intro {
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4A77AE;
+}
+
+li {
+    float: left;
+}
+
+li:last-child {
+  float: right;
+}
+
+li h1 {
+    color: white;
+    text-align: center;
+    padding: 13px 36px;
+    text-decoration: none;
+    margin: 0
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 18px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    text-decoration: underline;
+}
+
+li a.active {
+  background-color: #FFF;
+  color: #4A77AE;
+}
+
+.LogOutButton {
+  cursor: pointer;
+}
+
+.App-loggedInContainer {
+
+}
+
+.App-body {
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.holiday-lhs {
+    border: 2px solid #9D9D9D;
+    margin: 100px;
+    height: 273px;
+    width: 70%;
+    padding-top: 20px;
+}
+
+.text-align-left{
+  text-align: left;
+}
+
+.errorMessage {
+  color: #d9534f;
 }
