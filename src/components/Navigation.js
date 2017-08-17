@@ -20,8 +20,7 @@ export default class Navigation extends Component {
   }
 
   redirectToMain = (event) => {
-    const { data } = event;
-    debugger;
+    const { data } = event;    
     if (data !== "" && !isObject(data)) {
       isFunction(window.GEFunctions) && window.GEFunctions.init(data);
       this.getUserList();
