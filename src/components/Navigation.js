@@ -1,18 +1,44 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router'
+import isObject from 'lodash/isObject'
+import isFunction from 'lodash/isFunction'
+import get from 'lodash/get'
 
 export default class Navigation extends Component {
+  constructor(props){
+    super(props)
+    this.redirectToMain = this.redirectToMain.bind(this)
+    this.getUserList = this.getUserList.bind(this)
+  }
+
   componentDidMount() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    if (isLoggedIn !== "true") {
-        console.log("not LoggedIn");
-        this.props.router.replace("/login")
+    window.addEventListener('message', this.redirectToMain, false);
+  }
+
+  componentWillUnmount() {
+    window.addEventListener('message', {}, false);
+  }
+
+  redirectToMain = (event) => {
+    const { data } = event;
+    debugger;
+    if (data !== "" && !isObject(data)) {
+      isFunction(window.GEFunctions) && window.GEFunctions.init(data);
+      this.getUserList();
     }
   }
 
-  handleLogout = () => {
-    localStorage.setItem('isLoggedIn', false);
-    this.props.router.replace("/login")
+  getUserList = () => {
+    const { router } = this.props
+    isFunction(window.GEFunctions) && window.GEFunctions.getUserData()
+      .then(function (e) {
+        const response = JSON.parse(e.target.response);
+        window.GEFunctions.setUserName(get(response, 'Data.userName', null));
+        router.replace(window.GEFunctions.getAppUrl());
+      }, function (e) {
+        // handle errors
+        console.log('Hello error ', e);
+      });
   }
 
   render() {
@@ -26,7 +52,7 @@ export default class Navigation extends Component {
             <ul>
               <li><Link activeClassName="active" to="/main">Main Page</Link></li>
               <li><Link activeClassName="active" to="/aboutUs">About Us</Link></li>
-              <li><a className="LogOutButton"onClick={this.handleLogout}>Logout</a></li>
+              <li></li>
             </ul>
           </div>
         </div>
